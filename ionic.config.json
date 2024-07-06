@@ -1,0 +1,7 @@
+{
+  "name": "safetyhome",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
