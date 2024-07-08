@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { MainPageRoutingModule } from './main-routing.module';
+import { FinishProfilePageRoutingModule } from './finish-profile-routing.module';
 
-import { MainPage } from './main.page';
+import { FinishProfilePage } from './finish-profile.page';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
@@ -14,9 +14,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    MainPageRoutingModule,
+    FinishProfilePageRoutingModule,
     SharedModule
   ],
-  declarations: [MainPage]
+  declarations: [FinishProfilePage]
 })
-export class MainPageModule {}
+export class FinishProfilePageModule {}

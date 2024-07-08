@@ -18,7 +18,9 @@ export class SignUpPage implements OnInit {
     uid: new FormControl(''),
     name: new FormControl('', [Validators.required, Validators.minLength(3)]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required])
+    password: new FormControl('', [Validators.required]),
+    role: new FormControl('', [Validators.required]),
+    telefono: new FormControl('', [Validators.required, Validators.minLength(12),Validators.maxLength(12)]),
   });
 
   constructor() { }
@@ -33,7 +35,7 @@ export class SignUpPage implements OnInit {
 
       this.firebaseService.signUp(this.form.value as User)
         .then(async resp => {
-          await this.firebaseService.updateUser(this.form.value.name);
+          await this.firebaseService.updateUser(this.form.value.role);
           
           let uid = resp.user.uid;
           this.form.controls.uid.setValue(uid);
@@ -66,7 +68,7 @@ export class SignUpPage implements OnInit {
       this.firebaseService.setDocument(path, this.form.value)
         .then(async resp => {
           this.utilsService.saveLocalStorage('user', this.form.value);
-          this.utilsService.routerLink('/main/home');
+          this.utilsService.routerLink('/auth/finish-profile');
           this.form.reset();
         }).catch(error => {
           console.log(error);

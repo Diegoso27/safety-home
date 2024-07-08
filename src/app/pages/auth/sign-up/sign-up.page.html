@@ -1,4 +1,4 @@
-<!-- <app-header backButton="/auth" title="Registrarse"></app-header> -->
+<app-header backButton="/auth" title="Registrarse"></app-header>
 
 
 <ion-content>
@@ -6,20 +6,7 @@
     <form [formGroup]="form" (ngSubmit)="submit()" action="" class="auth-form">
      
       <app-logo></app-logo>
-     
-      <app-input
-       autocomplete="name"
-       type="text"
-       label="Nombre"
-       icon="mail-outline"
-       [control]="form.controls.name"
-      ></app-input>
-
-      <div class="validators" *ngIf="form.controls.name.errors && form.controls.name.touched">
-        <div *ngIf="form.controls.name.errors?.['required']">Debe ingresar un nombre</div>
-        <div *ngIf="form.controls.name.errors?.['minLenght']">Debe ingresar un nombre mayor a 3 caracteres</div>
-      </div>
-
+    
       <app-input
        autocomplete="email"
        type="email"
@@ -43,6 +30,41 @@
       <div class="validators" *ngIf="form.controls.password.errors && form.controls.password.touched">
         <div *ngIf="form.controls.password.errors?.['required']">Debe ingresar su contraseña</div>
       </div>
+
+
+      <app-input
+      autocomplete="name"
+      type="text"
+      label="Nombre"
+      icon="person-outline"
+      [control]="form.controls.name"
+     ></app-input>
+
+     <div class="validators" *ngIf="form.controls.name.errors && form.controls.name.touched">
+       <div *ngIf="form.controls.name.errors?.['required']">Debe ingresar un nombre</div>
+       <div *ngIf="form.controls.name.errors?.['minLenght']">Debe ingresar un nombre mayor a 3 caracteres</div>
+     </div>
+
+
+     <app-input
+      autocomplete="telefono"
+      type="text"
+      label="Teléfono"
+      icon="phone-portrait"
+      [control]="form.controls.telefono"
+     ></app-input>
+
+     <div class="validators" *ngIf="form.controls.telefono.errors && form.controls.telefono.touched">
+       <div *ngIf="form.controls.telefono.errors?.['required']"> Debe ingresar un numero de celular</div>
+       <div *ngIf="form.controls.telefono.errors?.['minLenght']">El numero debe contener 12 caracteres incluyendo +56</div>
+     </div>
+
+     <ion-item>
+      <ion-select formControlName="role" label="Seleccione su rol" placeholder="Rol">
+        <ion-select-option value="propietario">Propietario/a</ion-select-option>
+        <ion-select-option value="asesor">Asesor/a de hogar</ion-select-option>
+      </ion-select>
+    </ion-item>
 
 
       <ion-button class="submit" type="submit" expand="block" fill="outline" shape="round" [disabled]="form.invalid">

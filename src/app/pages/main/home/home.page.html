@@ -1,0 +1,20 @@
+<app-header [showMenu]="true" title="Inicio"></app-header>
+
+<ion-content>
+
+  <ion-list *ngFor="let page of pages">
+    <ion-item>
+      <ion-avatar slot="start">
+        <img [src]="page.img">
+      </ion-avatar>
+
+      <ion-label>
+        <div>
+          {{ page.title }}
+        </div>
+      </ion-label>
+
+    </ion-item>
+  </ion-list>
+
+</ion-content>

@@ -1,0 +1,15 @@
+<app-header backButton="/main/home" [showMenu]="true" title="Procedimientos de emergencia"></app-header>
+
+<ion-content>
+  <div id="container">
+    <div id="bloque" *ngFor="let page of pages">
+      {{ page.title }}
+      <ion-tab-button [routerLink]="page.url">
+        <div id="area">
+          <img [src]="page.img" id="img">
+        </div>
+      </ion-tab-button>
+    </div>
+
+  </div>
+</ion-content>

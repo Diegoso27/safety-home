@@ -1,0 +1,44 @@
+<app-header backButton="/auth" [title]="user.role == 'propietario' ? 'Registrar Hogar' : 'Vincular Propiedad'" ></app-header>
+
+
+
+<ion-content *ngIf="user.role == 'propietario' ">
+
+  <ion-list *ngIf="!loading">
+    <ion-item-sliding class="product-item" *ngFor="let property of properties">
+      <ion-item>
+        <ion-label>
+          <div class="name">{{ property.direction}} {{ property.number }}</div>
+          <div class="data">
+            <strong>Comuna: </strong> {{ property.commune }} <br>
+            <strong>Ciudad: </strong> {{ property.city }} <br>
+          </div>
+        </ion-label>
+      </ion-item>
+    </ion-item-sliding>
+  </ion-list>
+
+
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+    <ion-fab-button (click)="addProperty()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>
+
+<ion-content *ngIf="user.role == 'asesor'">
+  <app-input
+  autocomplete="name"
+  type="text"
+  label="Nombre"
+  icon="person-outline"
+  [control]="form.controls.name"
+ ></app-input>
+
+ <div class="validators" *ngIf="form.controls.name.errors && form.controls.name.touched">
+   <div *ngIf="form.controls.name.errors?.['required']">Debe ingresar un nombre</div>
+   <div *ngIf="form.controls.name.errors?.['minLenght']">Debe ingresar un nombre mayor a 3 caracteres</div>
+ </div>
+
+</ion-content>

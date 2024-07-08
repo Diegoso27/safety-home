@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { MainPageRoutingModule } from './main-routing.module';
+import { EmergencyProceduresPageRoutingModule } from './emergency-procedures-routing.module';
 
-import { MainPage } from './main.page';
+import { EmergencyProceduresPage } from './emergency-procedures.page';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
@@ -14,9 +14,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    MainPageRoutingModule,
+    EmergencyProceduresPageRoutingModule,
     SharedModule
   ],
-  declarations: [MainPage]
+  declarations: [EmergencyProceduresPage]
 })
-export class MainPageModule {}
+export class EmergencyProceduresPageModule {}

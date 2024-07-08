@@ -34,6 +34,9 @@ export class FirebaseService {
   updateUser(displayName: any) {
     return updateProfile(getAuth().currentUser, {displayName});
   }
+  updateUser2(displayName: any) {
+    return updateProfile(getAuth().currentUser, {displayName});
+  }
 
   setDocument(path: any, data: any) {
     return setDoc(doc(getFirestore(), path), data);
