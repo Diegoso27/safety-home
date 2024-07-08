@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "349645951010",
+    "project_id": "safety-home-97a30",
+    "storage_bucket": "safety-home-97a30.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:349645951010:android:c6fa7e64b1b21abd3e7a7b",
+        "android_client_info": {
+          "package_name": "app.android"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfauYEfUoN_eTK5eb08NeOdToQe-9_1Us"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
