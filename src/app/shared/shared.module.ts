@@ -8,6 +8,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { AddPropertyComponent } from './components/add-property/add-property.component';
 import { AddChildComponent } from './components/add-child/add-child.component';
 import { AddTaskComponent } from './components/add-task/add-task.component';
+import { StickyEmergencyButtonComponent } from './components/sticky-emergency-button/sticky-emergency-button.component';
+import { ListEmergencyNumbersComponent } from './components/list-emergency-numbers/list-emergency-numbers.component';
 
 
 
@@ -18,13 +20,17 @@ import { AddTaskComponent } from './components/add-task/add-task.component';
     HeaderComponent,
     AddPropertyComponent,
     AddChildComponent,
-    AddTaskComponent
+    AddTaskComponent,
+    StickyEmergencyButtonComponent,
+    ListEmergencyNumbersComponent
   ],
   exports: [
     InputComponent,
     LogoComponent,
     FormsModule,
     HeaderComponent,
+    StickyEmergencyButtonComponent,
+    ListEmergencyNumbersComponent,
     ReactiveFormsModule,
     IonicModule
   ],

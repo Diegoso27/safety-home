@@ -27,13 +27,6 @@ export class SelectPropertyPage  {
   selectedUser: any[] = [];
   constructor() { }
 
-
-  async searchProperties(email: string) {
-    const owner = await this.firebaseService.findUserByTag(email);
-    this.properties = await this.firebaseService.getPropertiesFromUser(owner.uid);
-  }
-
-
   ionViewWillEnter() {
     this.getProperties();
   }
@@ -43,8 +36,10 @@ export class SelectPropertyPage  {
     this.utilsService.routerLink('main/home');
   }
 
-
-
+  async searchProperties(email: string) {
+    const owner = await this.firebaseService.findUserByTag(email);
+    this.properties = await this.firebaseService.getPropertiesFromUser(owner.uid);
+  }
 
   async addProperty(property?: Property ) {
     let modal = await this.utilsService.getModal({
