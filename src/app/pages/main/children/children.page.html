@@ -18,7 +18,7 @@
         <ion-item-option (click)="addChild(child)">
           <ion-icon class="option-btn" name="create-outline"></ion-icon>
         </ion-item-option>
-        <ion-item-option (click)="deleteChild(child)" color="danger">
+        <ion-item-option *ngIf="user.role == 'propietario'" (click)="deleteChild(child)" color="danger">
           <ion-icon class="option-btn" name="trash-outline"></ion-icon>
         </ion-item-option>
       </ion-item-options>
@@ -49,7 +49,7 @@
   </div>
 
   
-  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+  <ion-fab *ngIf="user.role == 'propietario'" vertical="bottom" horizontal="center" slot="fixed">
     <ion-fab-button (click)="addChild()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>

@@ -27,16 +27,21 @@ export class TasksPage implements OnInit {
 
   user = this.utilsService.getLocalStorage('user');
   property = this.utilsService.getLocalStorage('property');
+  ownerUID = this.utilsService.getLocalStorage('ownerUID');
+   
 
   loading: boolean = false;
 
   ionViewWillEnter() {
     this.getTasks();
+    console.log(this.user.role);
+    this.deleteTasks();
   }
 
   constructor() { }
 
   onCheckboxChange(task: Task, event: any) {
+    
 
     let path = `users/${this.user.uid}/properties/${this.property.id}/tasks`
 
@@ -50,7 +55,10 @@ export class TasksPage implements OnInit {
 
 
   ngOnInit() {
+  
+    
   }
+  
 
   submit() {
 
@@ -63,6 +71,17 @@ export class TasksPage implements OnInit {
       
     }
   }    
+
+
+  deleteTasks() {
+    for(let task in this.tasks) {
+      console.log('aaa', task);
+    }
+  }
+
+
+
+
 
   async addTask() {
 
@@ -104,8 +123,24 @@ export class TasksPage implements OnInit {
   }
 
   getTasks() {
-    let path = `users/${this.user.uid}/properties/${this.property.id}/tasks` 
-    console.log(path) 
+
+
+    let path: string;
+
+    if (this.user.role == 'propietario') {
+      
+      path = `users/${this.user.uid}/properties/${this.property.id}/tasks` 
+    
+    } else if (this.user.role == 'asesor') {
+
+      path = `users/${this.ownerUID.uid}/properties/${this.property.id}/tasks`
+
+    }
+
+  
+
+
+    console.log('>>', path) 
 
     this.loading = true;
     let sub =  this.firebaseService.getCollectionData(path)

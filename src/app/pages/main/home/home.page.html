@@ -1,4 +1,4 @@
-<app-header [showMenu]="true" title="Inicio"></app-header>
+<app-header backButton="main/select-property" [showMenu]="true" title="Bienvenido {{ user.name }}" ></app-header>
 
 <ion-content>
 
@@ -7,13 +7,11 @@
       <ion-avatar slot="start">
         <img [src]="page.img">
       </ion-avatar>
-
       <ion-label>
         <div>
           {{ page.title }}
         </div>
       </ion-label>
-
     </ion-item>
   </ion-list>
 

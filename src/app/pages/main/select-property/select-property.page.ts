@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { map } from 'rxjs';
 import { Property } from 'src/app/models/property.model';
@@ -22,15 +22,34 @@ export class SelectPropertyPage  {
   loading: boolean = false;
 
   properties: Property[] = [];
-  propiedades: any[] = [];
+  propiedadesOwner: any[] = [];
 
   selectedUser: any[] = [];
-  constructor() { }
+  
+  constructor(
+    private cdr: ChangeDetectorRef
+  ) { }
+
+  
+  form = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+  });
+
+  async submit() {
+    if (this.form.valid) {
+      this.loading = true;
+      await this.searchProperties(this.form.value.email);
+      console.log(this.propiedadesOwner);
+      this.loading = false;
+      this.cdr.detectChanges(); // Detecta los cambios y actualiza la vista
+    }
+  } 
 
 
   async searchProperties(email: string) {
     const owner = await this.firebaseService.findUserByTag(email);
-    this.properties = await this.firebaseService.getPropertiesFromUser(owner.uid);
+    this.utilsService.saveLocalStorage('ownerUID', owner)
+    this.propiedadesOwner = await this.firebaseService.getPropertiesFromUser(owner.uid);
   }
 
 

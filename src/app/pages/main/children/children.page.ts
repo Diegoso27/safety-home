@@ -22,6 +22,8 @@ export class ChildrenPage implements OnInit {
   
   user = this.utilsService.getLocalStorage('user');
   property = this.utilsService.getLocalStorage('property');
+  ownerUID = this.utilsService.getLocalStorage('ownerUID');
+
 
 
   constructor() { }
@@ -44,7 +46,19 @@ export class ChildrenPage implements OnInit {
   }
 
   getChildren() {
-    let path = `users/${this.user.uid}/properties/${this.property.id}/children`; 
+
+    let path: string;
+
+    if (this.user.role == 'propietario') {
+      
+      path = `users/${this.user.uid}/properties/${this.property.id}/children` 
+    
+    } else if (this.user.role == 'asesor') {
+
+      path = `users/${this.ownerUID.uid}/properties/${this.property.id}/children`
+
+    }
+
     console.log(path) 
 
     this.loading = true;

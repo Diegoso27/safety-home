@@ -26,7 +26,7 @@
 
 </ion-content>
 
-  <ion-footer  style="margin-bottom: 30px;">
+  <ion-footer *ngIf="user.role == 'propietario'" style="margin-bottom: 30px;">
     <ion-toolbar>
       <form [formGroup]="form" (ngSubmit)="addTask()" action="" class="auth-form">
         <ion-label>

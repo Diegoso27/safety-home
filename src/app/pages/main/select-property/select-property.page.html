@@ -1,5 +1,8 @@
 <app-header backButton="/auth" [title]="user.role == 'propietario' ? 'Registrar Hogar' : 'Vincular Propiedad'" ></app-header>
 
+
+
+
 <ion-content *ngIf="user.role == 'propietario' ">
 
   <ion-list *ngIf="!loading">
@@ -54,6 +57,47 @@
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
+
+</ion-content>
+
+<ion-content *ngIf="user.role == 'asesor'">
+
+  <div class="ion-text-center">
+    <h3>Ingrese el correo del propietario</h3>
+
+  </div>
+
+  <div class="d-flex-center">
+    <form [formGroup]="form" (ngSubmit)="submit()" action="" class="auth-form">
+      
+      <app-input
+      autocomplete="email"
+      type="email"
+      label="Correo"
+      icon="mail-outline"
+      [control]="form.controls.email"
+     ></app-input>
+
+     <ion-button class="submit" type="submit" expand="block" fill="outline" shape="round" [disabled]="form.invalid">
+        Buscar
+     </ion-button>
+    
+    </form>
+  </div>
+ 
+  <ion-list *ngIf="propiedadesOwner.length > 0">
+    <ion-item-sliding class="product-item" *ngFor="let property of propiedadesOwner">
+      <ion-item (click)="selectPropetry(property)">
+        <ion-label>
+          <div class="name">{{ property.direction }} {{ property.number }}</div>
+          <div class="data">
+            {{ property.commune }}, {{ property.city }}<br>
+            Región {{ property.region }}<br>
+          </div>
+        </ion-label>
+      </ion-item>
+    </ion-item-sliding>
+  </ion-list>
 
 </ion-content>
 

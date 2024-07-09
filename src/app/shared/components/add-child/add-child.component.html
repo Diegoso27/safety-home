@@ -100,7 +100,7 @@
   </div>
 
 
-  <ion-button class="submit" type="submit" shape="round" [disabled]="form.invalid">
+  <ion-button *ngIf="user.role == 'propietario'" class="submit" type="submit" shape="round" [disabled]="form.invalid">
     {{ child ? 'Actualizar perfil' : 'Agregar Infante' }}
     <ion-icon slot="end" name="checkmark-circle-outline"></ion-icon>
   </ion-button>

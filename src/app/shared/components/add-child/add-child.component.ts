@@ -18,7 +18,7 @@ export class AddChildComponent  implements OnInit {
   firebaseService = inject(FirebaseService);
   utilsService = inject(UtilsService);
 
-  user = {} as User;
+  user = this.utilsService.getLocalStorage('user');
   property = {} as Property;
 
 
@@ -37,7 +37,7 @@ export class AddChildComponent  implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.user = this.utilsService.getLocalStorage('user');
+    ;
 
     this.property = this.utilsService.getLocalStorage('property');
 

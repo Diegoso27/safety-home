@@ -1,1 +1,48 @@
 <app-header backButton="/main/home" title="Mi Perfil" ></app-header>
+
+
+<ion-content>
+
+  
+ <form [formGroup]="form" action="" class="auth-form">
+        
+        <app-input
+        autocomplete="email"
+        type="email"
+        label="Correo"
+        icon="mail-outline"
+        [control]="form.controls.email"
+        ></app-input>
+        
+        
+        <app-input
+        autocomplete="name"
+        type="text"
+        label="Nombre"
+        icon="person-outline"
+        [control]="form.controls.name"
+        ></app-input>
+        
+        
+        
+        
+    <app-input
+      autocomplete="telefono"
+      type="text"
+      label="Teléfono"
+      icon="phone-portrait"
+      [control]="form.controls.telefono"
+     ></app-input>
+
+     <app-input
+     autocomplete="telefono"
+     type="text"
+     label="Rol"
+     icon=""
+     [control]="form.controls.role"
+    ></app-input>
+
+     
+    
+</form>
+</ion-content>
