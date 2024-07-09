@@ -21,9 +21,7 @@ export class ChildrenPage implements OnInit {
   loading: boolean = false;
   
   user = this.utilsService.getLocalStorage('user');
-  property = this.utilsService.getLocalStorage('property')
-
-
+  property = this.utilsService.getLocalStorage('property');
 
 
   constructor() { }
@@ -36,6 +34,7 @@ export class ChildrenPage implements OnInit {
   }
 
   async addChild(child?: Children ) {
+    console.log(child);
     let modal = await this.utilsService.getModal({
       component: AddChildComponent,
       cssClass: 'add-update-modal',
@@ -64,6 +63,49 @@ export class ChildrenPage implements OnInit {
           sub.unsubscribe();
         }
       })
+  }
+
+
+
+
+  async deleteChild(child: Children) {
+    let path = `users/${this.user.uid}/properties/${this.property.id}/children/${child.id}`
+
+    const loading = await this.utilsService.loading();
+    await loading.present();
+
+    let imgPath = await this.firebaseService.getFilePath(child.img);
+    await this.firebaseService.deleteFile(imgPath); 
+
+
+
+    this.firebaseService.deleteDocument(path)
+      .then(async resp => { 
+
+        this.children = this.children.filter(e => e.id !== child.id );
+
+        this.utilsService.presentToast({
+          message: 'Infante eliminado correctamente',
+          duration: 1500,
+          color: 'primary',
+          position: 'bottom',
+          icon: 'checkmark-circle-outline'
+        })
+
+      }).catch(error => {
+        console.log(error);
+        this.utilsService.presentToast({
+          message: error.message,
+          duration: 1500,
+          color: 'danger',
+          position: 'bottom',
+          icon: 'alert-circle-outline'
+        })
+      }).finally(() =>{
+        loading.dismiss();
+      }) 
+
+
   }
 
 

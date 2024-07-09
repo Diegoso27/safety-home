@@ -1,7 +1,7 @@
-<app-header [isModal]="true" title="Agregar Niño/a" ></app-header>
+<app-header [isModal]="true" [title]="child ? 'Actualizar perfil' : 'Agregar'" ></app-header>
 <ion-content>
 
-  <form [formGroup]="form" (ngSubmit)="addChild()" action="" class="auth-form">
+  <form [formGroup]="form" (ngSubmit)="submit()" action="" class="auth-form">
 
     <ion-avatar *ngIf="form.value.img">
       <img [src]="form.value.img">
@@ -101,7 +101,7 @@
 
 
   <ion-button class="submit" type="submit" shape="round" [disabled]="form.invalid">
-    Agregar Infante
+    {{ child ? 'Actualizar perfil' : 'Agregar Infante' }}
     <ion-icon slot="end" name="checkmark-circle-outline"></ion-icon>
   </ion-button>
 

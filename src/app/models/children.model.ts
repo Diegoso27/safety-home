@@ -1,8 +1,8 @@
 export interface Children {
-    uid: string,
+    id: string,
     rut: string,
     name: string,
-    age: number,
+    age: string,
     bloodType: string,
     medicalHistory: string,
     medicalInsurance: string,

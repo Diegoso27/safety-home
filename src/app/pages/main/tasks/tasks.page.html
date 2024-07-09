@@ -8,12 +8,14 @@
       <ion-item>
 
 
-        <ion-label>
+
+        <ion-checkbox  [checked]="task.taskStatus" [checked]="task.taskStatus" (ionChange)="onCheckboxChange(task, $event)" justify="space-between">{{ task.taskName }}</ion-checkbox>
+        <!-- <ion-label>
           {{ task.taskName }}
         </ion-label>      
         <ion-label slot="end" >
           {{ task.taskStatus ? 'Completado' : 'No Completado' }}
-        </ion-label> 
+        </ion-label>  -->
 
       </ion-item>
 

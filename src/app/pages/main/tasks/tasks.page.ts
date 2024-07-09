@@ -36,6 +36,17 @@ export class TasksPage implements OnInit {
 
   constructor() { }
 
+  onCheckboxChange(task: Task, event: any) {
+
+    let path = `users/${this.user.uid}/properties/${this.property.id}/tasks`
+
+    task.taskStatus = event.detail.checked;
+    this.firebaseService.updateTask(task, path).then(() => {
+      console.log('Task updated:', task);
+    }).catch(error => {
+      console.error('Error updating task:', error);
+    });
+  }
   ngOnInit() {
 
   }
@@ -58,13 +69,13 @@ export class TasksPage implements OnInit {
 
     const loading = await this.utilsService.loading();
     await loading.present();
-
+    
+    delete this.form.value.id;
     const taskData = {
       ...this.form.value,
       taskStatus: false // Asegurando que taskStatus es false
     };
 
-    delete this.form.value.id;
 
     this.firebaseService.addDocument(path, taskData)
     .then(async resp => {
@@ -96,7 +107,7 @@ export class TasksPage implements OnInit {
     console.log(path) 
 
     this.loading = true;
-    let sub = this.firebaseService.getCollectionData(path)
+    let sub =  this.firebaseService.getCollectionData(path)
       .snapshotChanges().pipe(
         map(changes => changes.map(c =>({
           id: c.payload.doc.id,
@@ -106,7 +117,6 @@ export class TasksPage implements OnInit {
         next: (resp: any) => {
           this.tasks = resp;
           console.log(resp);
-          console.log(sub, 'sub');
           this.loading = false;
           sub.unsubscribe();
         }

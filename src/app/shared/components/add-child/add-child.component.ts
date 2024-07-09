@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Children } from 'src/app/models/children.model';
 import { Property } from 'src/app/models/property.model';
@@ -12,6 +12,8 @@ import { UtilsService } from 'src/app/services/utils.service';
   styleUrls: ['./add-child.component.scss'],
 })
 export class AddChildComponent  implements OnInit {
+
+  @Input() child: Children
 
   firebaseService = inject(FirebaseService);
   utilsService = inject(UtilsService);
@@ -38,14 +40,21 @@ export class AddChildComponent  implements OnInit {
     this.user = this.utilsService.getLocalStorage('user');
 
     this.property = this.utilsService.getLocalStorage('property');
-    console.log(this.property);
-    console.log(this.property.id);
+
+    if(this.child) this.form.setValue(this.child);
+
   }
 
   submit() {
 
     if (this.form.valid) {
-      this.addChild();
+      if (this.child) {
+        console.log('por aqui pasa');
+        this.updateChild();
+      } else { 
+        this.addChild();
+        console.log('por aqui pasa tmbn');
+      } 
     }
   }
  
@@ -96,6 +105,53 @@ export class AddChildComponent  implements OnInit {
         loading.dismiss();
       })  
   }
+
+
+  async updateChild() {
+    let path = `users/${this.user.uid}/properties/${this.property.id}/children/${this.child.id}`
+
+    const loading = await this.utilsService.loading();
+    await loading.present();
+
+    if (this.form.value.img !== this.child.img) {
+      let dataUrl = this.form.value.img;
+      let imgPath = await this.firebaseService.getFilePath(this.child.img);
+      let imgUrl = await this.firebaseService.updateImg(imgPath, dataUrl);
+
+      this.form.controls.img.setValue(imgUrl);
+
+    } 
+
+    delete this.form.value.id
+
+    this.firebaseService.updateDocument(path, this.form.value)
+      .then(async resp => {
+
+        this.utilsService.dismissModal({ success: true })
+        this.utilsService.presentToast({
+          message: 'Infante actualizado correctamente',
+          duration: 1500,
+          color: 'primary',
+          position: 'bottom',
+          icon: 'checkmark-circle-outline'
+        })
+
+      }).catch(error => {
+        console.log(error);
+        this.utilsService.presentToast({
+          message: error.message,
+          duration: 1500,
+          color: 'danger',
+          position: 'bottom',
+          icon: 'alert-circle-outline'
+        })
+      }).finally(() =>{
+        loading.dismiss();
+      }) 
+
+
+  }
+
 
   async takeImg() {
     const dataUrl = (await this.utilsService.takePicture('Imagen del niño/a')).dataUrl 

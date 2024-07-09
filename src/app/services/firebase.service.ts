@@ -3,9 +3,9 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, sendPasswordResetEmail } from 'firebase/auth'
 import { User } from '../models/user.model';
-import { doc, getFirestore, setDoc, getDoc, addDoc, collection } from '@angular/fire/firestore';
+import { doc, getFirestore, setDoc, getDoc, addDoc, collection, updateDoc, deleteDoc } from '@angular/fire/firestore';
 import { UtilsService } from './utils.service';
-import { getDownloadURL, getStorage, ref, uploadString } from 'firebase/storage';
+import { deleteObject, getDownloadURL, getStorage, ref, uploadString } from 'firebase/storage';
 import { forkJoin, map, mergeMap, Observable, of } from 'rxjs';
 
 @Injectable({
@@ -125,6 +125,27 @@ export class FirebaseService {
     return propiedadRef.collection('asesores').doc(asesorId).set({
       asesorId: asesorId
     });
+  }
+
+  async getFilePath(url: string) {
+    return ref(getStorage(), url).fullPath
+  }
+
+  updateDocument(path: any, data: any) {
+    return updateDoc(doc(getFirestore(), path), data)
+  } 
+
+
+  deleteDocument(path: any) {
+    return deleteDoc(doc(getFirestore(), path));
+  }
+
+  deleteFile(path: any) {
+    return deleteObject(ref(getStorage(), path));
+  }
+
+  updateTask(task: any, path: any): Promise<void> {
+    return this.firestore.collection(path).doc(task.id).update({ tasKStatus: task.taskStatus });
   }
 
 

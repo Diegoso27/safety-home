@@ -15,10 +15,10 @@
       </ion-item>
 
       <ion-item-options>
-        <ion-item-option>
+        <ion-item-option (click)="addChild(child)">
           <ion-icon class="option-btn" name="create-outline"></ion-icon>
         </ion-item-option>
-        <ion-item-option color="danger">
+        <ion-item-option (click)="deleteChild(child)" color="danger">
           <ion-icon class="option-btn" name="trash-outline"></ion-icon>
         </ion-item-option>
       </ion-item-options>

@@ -38,6 +38,10 @@ const routes: Routes = [
   {
     path: 'health',
     loadChildren: () => import('./health/health.module').then( m => m.HealthPageModule)
+  },
+  {
+    path: 'profile',
+    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
   }
 
 ];
