@@ -1,0 +1,13 @@
+<app-header [isModal]="true" title="Números de emergencia" ></app-header>
+<ion-content>
+  <ion-list *ngFor="let item of numberList">
+    <ion-item [href]="item.number" >
+      <ion-icon *ngIf="item.icon" color="primary" [name]="item.icon"></ion-icon>
+      &nbsp;
+      &nbsp;
+      <ion-label>
+        {{item.name}}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
