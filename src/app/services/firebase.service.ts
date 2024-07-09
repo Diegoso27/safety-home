@@ -7,6 +7,7 @@ import { doc, getFirestore, setDoc, getDoc, addDoc, collection } from '@angular/
 import { UtilsService } from './utils.service';
 import { getDownloadURL, getStorage, ref, uploadString } from 'firebase/storage';
 import { forkJoin, map, mergeMap, Observable, of } from 'rxjs';
+import { Property } from '../models/property.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,8 @@ export class FirebaseService {
   utilsService = inject(UtilsService);
 
   dataRef: AngularFirestoreCollection<User>;
-
+  userData: User;
+  propertiesData: Property[];
 
   getAuth() {
     return getAuth();
@@ -81,43 +83,45 @@ export class FirebaseService {
     return this.firestore.collection('users/properties', ref => ref.where('tags', 'array-contains', tag)).snapshotChanges();
   }
 
-  async buscarPropiedadesPorTags(tag: string): Promise<Observable<any[]>> {
-    return await this.firestore.collection('users').snapshotChanges().pipe(
-      mergeMap(users => {
-        if (users.length === 0) {
-          console.log('No users found');
-          return of([]);
+  async findUserByTag(email: string): Promise<User> {
+    return await new Promise((resolve, reject) => {
+      this.firestore.collection<User>('users', ref => ref.where('email', '==', email)).snapshotChanges().subscribe(
+        users => {
+          if (users.length === 0) {
+            console.log('No users found');
+            of([]);
+          }
+          console.log(`Found ${users.length} users`);
+          console.log('lala');
+  
+          this.userData = users[0].payload.doc.data();
+          resolve(this.userData);
         }
-        console.log(`Found ${users.length} users`);
-
-        const propertiesObservables = users.map(async user => {
-          const userId = user.payload.doc.id;
-          console.log(`Checking properties for user: ${userId}`);
-
-          return await this.firestore.collection(`users/${userId}/properties`, ref => ref.where('tag', '==', tag)).snapshotChanges().pipe(
-            map(actions => {
-              if (actions.length === 0) {
-                console.log(`No properties found for user: ${userId} with tag: ${tag}`);
-              } else {
-                console.log(`Found ${actions.length} properties for user: ${userId} with tag: ${tag}`);
-              }
-              return actions.map(a => {
-                const data = a.payload.doc.data();
-                const id = a.payload.doc.id;
-                return { id, userId, data };
-              });
-            })
-          );
-        });
-        return forkJoin(propertiesObservables);
-      }),
-      map(propertiesArray => {
-        const flatProperties = propertiesArray.flat();
-        console.log(`Total properties found: ${flatProperties.length}`);
-        return flatProperties;
-      })
-    );
+      );
+    });
   }
+
+  async getPropertiesFromUser(uid: string): Promise<Property[]> {
+    return await new Promise((resolve, reject) => {
+      this.firestore.collection<Property>(`users/${uid}/properties`).snapshotChanges().subscribe(
+        properties => {
+          if (properties.length === 0) {
+            console.log('No properties found');
+            of([]);
+          }
+          console.log(`Found ${properties.length} properties`);
+  
+          this.propertiesData = properties.map(e => {
+            return {
+              id: e.payload.doc.id,
+              ...e.payload.doc.data()
+            };
+          });
+          resolve(this.propertiesData);
+        }
+      );
+    });
+  };
 
   addAsesorToPropiedad(userId: string, propiedadId: string, asesorId: string) {
     const propiedadRef = this.firestore.collection(`users/${userId}/properties`).doc(propiedadId);
