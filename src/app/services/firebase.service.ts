@@ -145,7 +145,7 @@ export class FirebaseService {
   }
 
   updateTask(task: any, path: any): Promise<void> {
-    return this.firestore.collection(path).doc(task.id).update({ tasKStatus: task.taskStatus });
+    return this.firestore.collection(path).doc(task.id).update({ taskStatus: task.taskStatus });
   }
 
 
