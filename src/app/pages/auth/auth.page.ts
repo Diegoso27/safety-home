@@ -58,7 +58,7 @@ export class AuthPage implements OnInit {
       this.firebaseService.getDocument(path)
       .then((user: User) => {
         this.utilsService.saveLocalStorage('user', user);
-        this.utilsService.routerLink('/main/home');
+        this.utilsService.routerLink('/main/select-property');
         this.form.reset();
 
         this.utilsService.presentToast({

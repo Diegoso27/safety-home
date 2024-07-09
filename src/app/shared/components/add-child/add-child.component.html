@@ -1,0 +1,113 @@
+<app-header [isModal]="true" title="Agregar Niño/a" ></app-header>
+<ion-content>
+
+  <form [formGroup]="form" (ngSubmit)="addChild()" action="" class="auth-form">
+
+    <ion-avatar *ngIf="form.value.img">
+      <img [src]="form.value.img">
+    </ion-avatar>
+
+    <ion-icon class="img-icon" *ngIf="!form.value.img" name="image-outline"></ion-icon>
+
+    <br>
+
+    <ion-button (click)="takeImg()" size="small" shape="round">
+      Tomar/Seleccionar foto
+    </ion-button>
+
+  <app-input
+    autocomplete="name"
+    type="text"
+    label="Nombre"
+    [control]="form.controls.name"
+  ></app-input>
+
+  <div class="validators" *ngIf="form.controls.name.errors && form.controls.name.touched">
+  <div *ngIf="form.controls.name.errors?.['required']">Este campo es requerido</div>
+
+  </div>
+
+  <app-input
+    autocomplete="rut"
+    type="text"
+    label="Rut"
+    [control]="form.controls.rut"
+  ></app-input>
+
+  <div class="validators" *ngIf="form.controls.rut.errors && form.controls.rut.touched">
+  <div *ngIf="form.controls.rut.errors?.['required']">Este campo es requerido</div>
+
+  </div>
+
+  <app-input
+    autocomplete="age"
+    type="text"
+    label="Edad"
+    [control]="form.controls.age"
+  ></app-input>
+
+  <div class="validators" *ngIf="form.controls.age.errors && form.controls.age.touched">
+  <div *ngIf="form.controls.age.errors?.['required']">Este campo es requerido</div>
+
+  </div>
+
+  <app-input
+    autocomplete="bloodType"
+    type="text"
+    label="Tipo de Sangre"
+    [control]="form.controls.bloodType"
+  ></app-input>
+
+  <div class="validators" *ngIf="form.controls.bloodType.errors && form.controls.bloodType.touched">
+  <div *ngIf="form.controls.bloodType.errors?.['required']">Este campo es requerido</div>
+
+  </div>
+
+  <app-input
+    autocomplete="medicalHistory"
+    type="text"
+    label="Antecedentes Médicos"
+    [control]="form.controls.medicalHistory"
+  ></app-input>
+
+  <div class="validators" *ngIf="form.controls.medicalHistory.errors && form.controls.medicalHistory.touched">
+  <div *ngIf="form.controls.medicalHistory.errors?.['required']">Este campo es requerido</div>
+
+  </div>
+
+  <app-input
+    autocomplete="medicalInsurance"
+    type="text"
+    label="Previsión"
+    [control]="form.controls.medicalInsurance"
+  ></app-input>
+
+  <div class="validators" *ngIf="form.controls.medicalInsurance.errors && form.controls.medicalInsurance.touched">
+  <div *ngIf="form.controls.medicalInsurance.errors?.['required']">Este campo es requerido</div>
+
+  </div>
+
+  <app-input
+    autocomplete="allergies"
+    type="text"
+    label="Alergias"
+    [control]="form.controls.allergies"
+  ></app-input>
+
+  <div class="validators" *ngIf="form.controls.allergies.errors && form.controls.allergies.touched">
+  <div *ngIf="form.controls.allergies.errors?.['required']">Este campo es requerido</div>
+
+  </div>
+
+
+  <ion-button class="submit" type="submit" shape="round" [disabled]="form.invalid">
+    Agregar Infante
+    <ion-icon slot="end" name="checkmark-circle-outline"></ion-icon>
+  </ion-button>
+
+
+  </form>
+
+
+
+</ion-content>

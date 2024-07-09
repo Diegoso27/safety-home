@@ -8,11 +8,11 @@ import { UtilsService } from 'src/app/services/utils.service';
 import { AddPropertyComponent } from 'src/app/shared/components/add-property/add-property.component';
 
 @Component({
-  selector: 'app-finish-profile',
-  templateUrl: './finish-profile.page.html',
-  styleUrls: ['./finish-profile.page.scss'],
+  selector: 'app-select-property',
+  templateUrl: './select-property.page.html',
+  styleUrls: ['./select-property.page.scss'],
 })
-export class FinishProfilePage implements OnInit {
+export class SelectPropertyPage implements OnInit {
 
   firebaseService = inject(FirebaseService);
   utilsService = inject(UtilsService);
@@ -22,22 +22,39 @@ export class FinishProfilePage implements OnInit {
   loading: boolean = false;
 
   properties: Property[] = [];
+  propiedades: any[] = [];
 
-
-  form = new FormGroup({
-    name: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    telefono: new FormControl('', [Validators.required, Validators.minLength(12),Validators.maxLength(12)]),
-  });
+  tag = 'asd'
 
   constructor() { }
 
-  ngOnInit() {
-
+  async ngOnInit() {
+    await this.buscar();
   }
+
+
+
+  async buscar() {
+    const properties = await this.firebaseService.buscarPropiedadesPorTags(this.tag)
+    properties.subscribe(data => {
+      console.log('Properties found:', data);
+      this.propiedades = data;
+    }, error => {
+      console.error('Error fetching properties:', error);
+    });
+  }
+
 
   ionViewWillEnter() {
     this.getProperties();
   }
+
+  selectPropetry(property: Property) {
+    this.utilsService.saveLocalStorage('property', property);
+    this.utilsService.routerLink('main/home');
+  }
+
+
 
 
   async addProperty(property?: Property ) {
@@ -48,8 +65,6 @@ export class FinishProfilePage implements OnInit {
     })
     if (modal) this.getProperties();
   }
-
-
 
   getProperties() {
     let path = `users/${this.user.uid}/properties`;  
@@ -64,21 +79,9 @@ export class FinishProfilePage implements OnInit {
       ).subscribe({
         next: (resp: any) => {
           this.properties = resp;
-          console.log(this.properties);
-          console.log(sub, 'sub');
           this.loading = false;
           sub.unsubscribe();
         }
       })
-      console.log(sub, 'sub')
   }
-
-
-
-
-
-
-
-  }
-
-
+}

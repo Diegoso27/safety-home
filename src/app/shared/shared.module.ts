@@ -6,6 +6,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { HeaderComponent } from './components/header/header.component';
 import { AddPropertyComponent } from './components/add-property/add-property.component';
+import { AddChildComponent } from './components/add-child/add-child.component';
+import { AddTaskComponent } from './components/add-task/add-task.component';
 
 
 
@@ -14,7 +16,9 @@ import { AddPropertyComponent } from './components/add-property/add-property.com
     InputComponent,
     LogoComponent,
     HeaderComponent,
-    AddPropertyComponent
+    AddPropertyComponent,
+    AddChildComponent,
+    AddTaskComponent
   ],
   exports: [
     InputComponent,

@@ -8,9 +8,9 @@ import { Component, OnInit } from '@angular/core';
 export class EmergencyProceduresPage implements OnInit {
 
   pages = [
-    { title: 'Incendio', url: '/main/home', img: 'assets/img/bgIncendio.jpg' },
-    { title: 'Sismo', url: '/main/home', img: 'assets/img/bgSismo.webp ' },
-    { title: 'Urgencia médica', url: '/main/home', img: 'assets/img/bgSalud.webp' },
+    { title: 'Incendio', url: '/main/fire', img: 'assets/img/bgIncendio.jpg' },
+    { title: 'Sismo', url: '/main/earthquake', img: 'assets/img/bgSismo.webp ' },
+    { title: 'Urgencia médica', url: '/main/health', img: 'assets/img/bgSalud.webp' },
   ]
 
   constructor() { }

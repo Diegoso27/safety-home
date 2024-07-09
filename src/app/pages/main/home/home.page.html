@@ -3,7 +3,7 @@
 <ion-content>
 
   <ion-list *ngFor="let page of pages">
-    <ion-item>
+    <ion-item [routerLink]=page.url>
       <ion-avatar slot="start">
         <img [src]="page.img">
       </ion-avatar>

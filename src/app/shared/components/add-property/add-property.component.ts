@@ -50,6 +50,9 @@ export class AddPropertyComponent  implements OnInit {
 
     const loading = await this.utilsService.loading();
     await loading.present();
+    console.log(this.form.value);
+
+    delete this.form.value.id;
 
     this.firebaseService.addDocument(path, this.form.value)
       .then(async resp => {

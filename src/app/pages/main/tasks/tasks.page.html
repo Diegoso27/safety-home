@@ -1,0 +1,42 @@
+<app-header backButton="/main/home" [showMenu]="true" title="Tareas"></app-header>
+
+<ion-content>
+  <div class="ion-padding ion-text-center">Scroll the list to see the title collapse.</div>
+
+  <ion-list>
+    <ion-item-sliding *ngFor="let task of tasks">
+      <ion-item>
+
+
+        <ion-label>
+          {{ task.taskName }}
+        </ion-label>      
+        <ion-label slot="end" >
+          {{ task.taskStatus ? 'Completado' : 'No Completado' }}
+        </ion-label> 
+
+      </ion-item>
+
+
+    </ion-item-sliding>
+
+  </ion-list>
+
+</ion-content>
+
+  <ion-footer  style="margin-bottom: 30px;">
+    <ion-toolbar>
+      <form [formGroup]="form" (ngSubmit)="addTask()" action="" class="auth-form">
+        <ion-label>
+          Añadir Tareas
+        </ion-label>
+        <ion-item>
+          <ion-icon (click)="submit()" name="send" slot="end"></ion-icon>
+          <ion-input formControlName="taskName">  
+          </ion-input>
+        </ion-item>
+      </form>
+        
+    </ion-toolbar>
+  </ion-footer>
+
