@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { map } from 'rxjs';
 import { Property } from 'src/app/models/property.model';
@@ -12,7 +12,7 @@ import { AddPropertyComponent } from 'src/app/shared/components/add-property/add
   templateUrl: './select-property.page.html',
   styleUrls: ['./select-property.page.scss'],
 })
-export class SelectPropertyPage implements OnInit {
+export class SelectPropertyPage  {
 
   firebaseService = inject(FirebaseService);
   utilsService = inject(UtilsService);
@@ -24,24 +24,13 @@ export class SelectPropertyPage implements OnInit {
   properties: Property[] = [];
   propiedades: any[] = [];
 
-  tag = 'asd'
-
+  selectedUser: any[] = [];
   constructor() { }
 
-  async ngOnInit() {
-    await this.buscar();
-  }
 
-
-
-  async buscar() {
-    const properties = await this.firebaseService.buscarPropiedadesPorTags(this.tag)
-    properties.subscribe(data => {
-      console.log('Properties found:', data);
-      this.propiedades = data;
-    }, error => {
-      console.error('Error fetching properties:', error);
-    });
+  async searchProperties(email: string) {
+    const owner = await this.firebaseService.findUserByTag(email);
+    this.properties = await this.firebaseService.getPropertiesFromUser(owner.uid);
   }
 
 
