@@ -1,6 +1,7 @@
 import { Component, inject, Input } from '@angular/core';
 import { UtilsService } from '../../../services/utils.service';
 import { ListEmergencyNumbersComponent } from '../list-emergency-numbers/list-emergency-numbers.component';
+import { EmergencyNumbers } from 'src/app/models/property.model';
 
 @Component({
   selector: 'app-sticky-emergency-button',
@@ -10,7 +11,7 @@ import { ListEmergencyNumbersComponent } from '../list-emergency-numbers/list-em
 export class StickyEmergencyButtonComponent {
   utilsService = inject(UtilsService);
 
-  @Input() numberList: number[] 
+  @Input() numberList: EmergencyNumbers[] 
 
   constructor() { }
 
@@ -18,24 +19,8 @@ export class StickyEmergencyButtonComponent {
 
 
   async onClick() {
-    // const list = this.numberList;
-    const list = [
-      {
-        number: 123456,
-        name: 'Policia',
-        icon: 'add'
-      },
-      {
-        number: 123456,
-        name: 'Policia',
-        icon: 'mail-outline'
-      },
-      {
-        number: 123456,
-        name: 'Policia',
-        icon: 'mail-outline'
-      }
-    ];
+    const list = this.numberList;
+
 
     await this.utilsService.getModal({
       component: ListEmergencyNumbersComponent,

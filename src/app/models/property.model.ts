@@ -9,5 +9,9 @@ export interface Property {
   commune: string,
   city: string,
   region: string,
-  number: string
+  number: string,
+  numBomberos: string,
+  numPolicia: string,
+  numUgenciamedica: string
+
 }

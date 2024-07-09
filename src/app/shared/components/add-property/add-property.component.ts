@@ -25,6 +25,9 @@ export class AddPropertyComponent  implements OnInit {
     city: new FormControl('', [Validators.required]),
     region: new FormControl('', [Validators.required]),
     number: new FormControl('', [Validators.required]),
+    numPolicia: new FormControl('', [Validators.required]),
+    numBomberos: new FormControl('', [Validators.required]),
+    numUgenciamedica: new FormControl('', [Validators.required]),
     
   });
 
