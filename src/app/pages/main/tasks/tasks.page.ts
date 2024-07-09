@@ -47,8 +47,9 @@ export class TasksPage implements OnInit {
       console.error('Error updating task:', error);
     });
   }
-  ngOnInit() {
 
+
+  ngOnInit() {
   }
 
   submit() {
